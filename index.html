@@ -5,39 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeatherVue</title>
-
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body onload="getCurrentLocation()">
     <header>
         <h1 class="logo">WeatherVue</h1>
-        <div class="search-box">
-            <input type="text" class="search-input" placeholder="Search for Location">
-            <i class="bi bi-search search-icon"></i>
-            <div class="location-error-message" style="display: none;">Location Error</div>
-
-        </div>
+        <nav>
+            <ul class="weather-option">
+                <li>
+                    <h2 class="current-weather">Currrent Weather</h2>
+                </li>
+                <li>
+                    <h2 class="ten-day-forecast">10 Day Forecast</h2>
+                </li>
+                <li>
+                    <h2 class="maps">Maps</h2>
+                </li>
+                <li>
+                    <h2 class="history">Historical Weather Data</h2>
+                </li>
+            </ul>
+        </nav>
     </header>
 
-    <section>
-        <div class="weather-option">
-            <h2 class="current-weather">Currrent Weather</h2>
-            <h2 class="10-day-forecast">10 Day Forecast</h2>
-            <h2 class="history">Historical Weather Data</h2>
+    <section class="weather-info">
+        <div class="top-section">
+            <div class="location-name">
+                <h2>Colombo, Sri Lanka</h2>
+            </div>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search for Location">
+                <i class="bi bi-search search-icon"></i>
+                <div class="location-error-message" style="display: none;">Location Error</div>
+            </div>
         </div>
 
-        <div class="current-weather-data">
-            <h1 class="location"></h1>
-            <img src="images/362.png" alt="">
-            <h3>Temperature</h3>
+        <div class="weather-info-section">
+            <div class="current-weather-data">
+                <h1 class="location"></h1>
+                <img src="images/362.png" alt="">
+                <h3>Temperature</h3>
+            </div>
         </div>
-            
-        
 
     </section>
 
-    
+
     <script src="assets/script.js"></script>
 </body>
 

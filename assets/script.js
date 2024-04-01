@@ -1,3 +1,4 @@
+var locationName=document.querySelector('.location-name h2')
 var searchInput = document.querySelector('.search-input');
 var searchIcon = document.querySelector('.search-icon');
 var locationErrorMessage = document.querySelector('.location-error-message');
@@ -8,7 +9,7 @@ function getCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition,showError);
     } else { 
-      console.log("Geolocation is not supported by this browser.");
+      window.alert("Geolocation is not supported by this browser.");
     }
 }
 
@@ -16,18 +17,23 @@ function showPosition(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     console.log("Latitude = " + latitude + "\nLongitude = " + longitude);
+  
     fetch("https://api.weatherapi.com/v1/search.json?key=" + weatherAPIKey + "&q=" + latitude + "," + longitude)
-        .then((res) => res.json())
-        .then((data) => {
-            data.forEach(element => {
-                console.log(element.name);
-            });
-        })
-        .catch((error) => {
-            console.error("Error fetching data:", error);
-            window.alert("Error Finding Your Current Location");
-        });
-}
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.length > 0) { // Check if data exists and has elements
+          locationName.textContent = data[0].name+" , "+data[0].country;
+        } else {
+          console.error("Error: No location data found");
+          window.alert("Error Finding Your Current Location (No Data)");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        window.alert("Error Finding Your Current Location");
+        getLocation("Sri Lanka");
+      });
+  }
 
 function showError(error) {
     switch(error.code) {
@@ -65,9 +71,9 @@ function getLocation(location) {
     fetch("http://api.weatherapi.com/v1/search.json?key="+weatherAPIKey+"&q="+location)
             .then((res) => res.json())
             .then((data) =>{
-                if (data && data.length==1) {
-                    console.log("Valid location");
-                } else {
+                if (data && data.length > 0) { // Check if data exists and has elements
+                    locationName.textContent = data[0].name+" , "+data[0].country;
+                }else {
                     showLocationError("Location not found",15000);
                 }
             })

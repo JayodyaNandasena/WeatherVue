@@ -12,7 +12,6 @@
 }
 
 *{
-    background-color: var(--bg-color);
     color: var(--text-color);
     font-size: 18px;
     font-family: var(--primary-font);
@@ -20,23 +19,80 @@
     letter-spacing: 0.5px;
 }
 
-header{
+body {
     display: flex;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
 }
+
+section {
+    flex: 1;
+    margin-left: 250px; /* Adjust the margin as needed */
+    padding: 20px; /* Add padding to create space between the header and section */
+}
+
+header {
+    width: 250px; /* Set a fixed width for the header */
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--grey-color);
+    position: fixed;
+    z-index: 10;
+}
+
 
 header .logo{
     font-size: 24px;
     font-weight: 600;
     margin: 5px 5px 5px 5px;
     padding: 5px 10px 5px 10px;
-    flex: 1;
-    margin-right: 10px;
-    cursor: default;
+    cursor: pointer;
+    background-color: var(--grey-color);
 }
 
-header .search-box {
+header nav{
+    align-items: center;
+    justify-content: flex-start;
+    /* margin: 5px 5px 5px 5px;
+    padding: 5px 10px 5px 10px; */
+    background-color: var(--grey-color);
+    display: block;
+    transition: 0.3s;
+}
+
+header nav ul{
+    list-style: none;
+    justify-content: center;
+    margin: 5px 5px 5px 5px;
+    padding: 5px 10px 5px 10px;
+}
+
+header nav h2 {
+    cursor: pointer;
+    padding: 5px 10px; 
+    display: inline-block;
+    width: auto;
+    text-align: left;
+    background-color: var(--grey-color);
+}
+
+header nav h2:hover{
+    cursor: pointer;
+    color: var(--bg-color);
+    font-weight: bold;
+}
+
+section .top-section{
     display: flex;
+}
+
+section .top-section .location-name{
+    flex: 1;
+}
+
+section .top-section .search-box {
     align-items: center;
     background-color: var(--grey-color);
     border-radius: 20px; 
@@ -44,14 +100,15 @@ header .search-box {
     width: 300px;
     height: 40px;
     margin-right: 10px;
+    display: flex;
 }
 
-header .search-box:hover {
+section .top-section .search-box:hover {
     cursor: pointer;
     box-shadow: 0 0 10px var(--grey-color);
 }
 
-header .search-box .search-input {
+section .top-section .search-box .search-input {
     flex: 1;
     background-color: transparent; 
     border: none;
@@ -60,20 +117,25 @@ header .search-box .search-input {
     color: var(--text-color);
 }
 
-header .search-box .search-icon {
+section .top-section .search-box .search-icon {
     padding: 10px 10px;
     background-color: transparent; 
 }
 
-header .search-box .search-icon:hover {
+section .top-section .search-box .search-icon:hover {
     cursor: pointer;
 }
 
-header .search-box .location-error-message {
+section .top-section .search-box .location-error-message {
     position: absolute;
     background-color: transparent;
     color: var(--orange-color);
     padding: 10px 10px;
     font-size: 12px;
+    display: none;
+}
+
+
+section .weather-info-section .current-weather-data{
     display: none;
 }
