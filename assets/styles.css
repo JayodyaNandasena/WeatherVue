@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+:root{
+    --bg-color: #24142c;
+    --text-color: #f6f6f8;
+    --dark-blue-color: #6c63fb;
+    --light-blue-color: #748cf1;
+    --grey-color: #3e3b51;
+    --orange-color: #9e616b;
+    --primary-font: 'Merriweather', serif;
+}
+
+*{
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 18px;
+    font-family: var(--primary-font);
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+header{
+    display: flex;
+    align-items: center;
+}
+
+header .logo{
+    font-size: 24px;
+    font-weight: 600;
+    margin: 5px 5px 5px 5px;
+    padding: 5px 10px 5px 10px;
+    flex: 1;
+    margin-right: 10px;
+    cursor: default;
+}
+
+header .search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--grey-color);
+    border-radius: 20px; 
+    padding: 5px 10px; 
+    width: 300px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+header .search-box:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--grey-color);
+}
+
+header .search-box .search-input {
+    flex: 1;
+    background-color: transparent; 
+    border: none;
+    outline: none; 
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+header .search-box .search-icon {
+    padding: 10px 10px;
+    background-color: transparent; 
+}
+
+header .search-box .search-icon:hover {
+    cursor: pointer;
+}
+
+header .search-box .location-error-message {
+    position: absolute;
+    background-color: transparent;
+    color: var(--orange-color);
+    padding: 10px 10px;
+    font-size: 12px;
+    display: none;
+}

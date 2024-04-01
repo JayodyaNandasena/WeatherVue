@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherVue</title>
+
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body onload="getCurrentLocation()">
+    <header>
+        <h1 class="logo">WeatherVue</h1>
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search for Location">
+            <i class="bi bi-search search-icon"></i>
+            <div class="location-error-message" style="display: none;">Location Error</div>
+
+        </div>
+    </header>
+
+    <section>
+        <div class="weather-option">
+            <h2 class="current-weather">Currrent Weather</h2>
+            <h2 class="10-day-forecast">10 Day Forecast</h2>
+            <h2 class="history">Historical Weather Data</h2>
+        </div>
+
+        <div class="current-weather-data">
+            <h1 class="location"></h1>
+            <img src="images/362.png" alt="">
+            <h3>Temperature</h3>
+        </div>
+            
+        
+
+    </section>
+
+    
+    <script src="assets/script.js"></script>
+</body>
+
+</html>
