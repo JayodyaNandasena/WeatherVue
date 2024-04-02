@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeatherVue</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 
@@ -32,7 +35,7 @@
     <section class="weather-info">
         <div class="top-section">
             <div class="location-name">
-                <h2>Colombo, Sri Lanka</h2>
+                <h2><i class="bi bi-crosshair"></i> Colombo , Sri Lanka</h2>
             </div>
             <div class="search-box">
                 <input type="text" class="search-input" placeholder="Search for Location">
@@ -43,9 +46,30 @@
 
         <div class="weather-info-section">
             <div class="current-weather-data">
-                <h1 class="location"></h1>
-                <img src="images/362.png" alt="">
-                <h3>Temperature</h3>
+                <p class="condition-text">Clear</p>
+
+                <p>
+                    <span class="temperature">22.2</span>&deg;
+                    &nbsp;
+                    <span class="temp-unit">&nbsp;C</span>
+                </p>
+                
+                <img class="condition-icon" src="images/day/113.png" alt="">
+                
+                <p><i class="bi bi-moisture"></i>&nbsp;
+                    <span class="humidity">94</span>
+                    &nbsp;%
+                </p>
+                <p><i class="bi bi-wind"></i>
+                    <span class="wind-speed">4.2</span>
+                    &nbsp;
+                    <span class="speed-unit">kmph</span>
+                </p>
+                <p class="wind-direction">South East</p>
+                <p class=""><i class="bi bi-brightness-high"></i>
+                    <span class="uv-index">1.0</span>
+                    &nbsp;
+                </p>
             </div>
         </div>
 

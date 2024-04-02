@@ -5,7 +5,7 @@
     --bg-color: #24142c;
     --text-color: #f6f6f8;
     --dark-blue-color: #6c63fb;
-    --light-blue-color: #748cf1;
+    --light-blue-color: #748df191;
     --grey-color: #3e3b51;
     --orange-color: #9e616b;
     --primary-font: 'Merriweather', serif;
@@ -28,12 +28,12 @@ body {
 
 section {
     flex: 1;
-    margin-left: 250px; /* Adjust the margin as needed */
-    padding: 20px; /* Add padding to create space between the header and section */
+    margin-left: 250px;
+    padding: 20px;
 }
 
 header {
-    width: 250px; /* Set a fixed width for the header */
+    width: 250px;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -89,6 +89,7 @@ section .top-section{
 }
 
 section .top-section .location-name{
+    display: inline;
     flex: 1;
 }
 
@@ -135,7 +136,14 @@ section .top-section .search-box .location-error-message {
     display: none;
 }
 
+section .weather-info-section{
+    background-color: var(--light-blue-color);
+    box-shadow: 0 0 10px var(--light-blue-color);
+    border-radius: 10px;
+    padding: 10px, 10px, 10px, 10px;
+}
 
 section .weather-info-section .current-weather-data{
-    display: none;
+    display: block;
+    border: 10px, 10px, 10px, 10px;
 }
