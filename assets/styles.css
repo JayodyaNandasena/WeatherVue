@@ -1,22 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
-:root{
+:root {
     --bg-color: #24142c;
     --text-color: #f6f6f8;
     --dark-blue-color: #6c63fb;
     --light-blue-color: #748df191;
     --grey-color: #3e3b51;
     --orange-color: #9e616b;
-    --primary-font: 'Merriweather', serif;
+    /* --primary-font: "PT Sans", sans-serif; */
 }
 
-*{
+* {
     color: var(--text-color);
     font-size: 18px;
     font-family: var(--primary-font);
     font-weight: normal;
     letter-spacing: 0.5px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -42,8 +44,7 @@ header {
     z-index: 10;
 }
 
-
-header .logo{
+header .logo {
     font-size: 24px;
     font-weight: 600;
     margin: 5px 5px 5px 5px;
@@ -52,7 +53,7 @@ header .logo{
     background-color: var(--grey-color);
 }
 
-header nav{
+header nav {
     align-items: center;
     justify-content: flex-start;
     /* margin: 5px 5px 5px 5px;
@@ -62,7 +63,7 @@ header nav{
     transition: 0.3s;
 }
 
-header nav ul{
+header nav ul {
     list-style: none;
     justify-content: center;
     margin: 5px 5px 5px 5px;
@@ -71,24 +72,23 @@ header nav ul{
 
 header nav h2 {
     cursor: pointer;
-    padding: 5px 10px; 
+    padding: 5px 10px;
     display: inline-block;
     width: auto;
     text-align: left;
     background-color: var(--grey-color);
 }
 
-header nav h2:hover{
+header nav h2:hover {
     cursor: pointer;
-    color: var(--bg-color);
     font-weight: bold;
 }
 
-section .top-section{
+section .top-section {
     display: flex;
 }
 
-section .top-section .location-name{
+section .top-section .location-name {
     display: inline;
     flex: 1;
 }
@@ -96,8 +96,8 @@ section .top-section .location-name{
 section .top-section .search-box {
     align-items: center;
     background-color: var(--grey-color);
-    border-radius: 20px; 
-    padding: 5px 10px; 
+    border-radius: 20px;
+    padding: 5px 10px;
     width: 300px;
     height: 40px;
     margin-right: 10px;
@@ -111,16 +111,16 @@ section .top-section .search-box:hover {
 
 section .top-section .search-box .search-input {
     flex: 1;
-    background-color: transparent; 
+    background-color: transparent;
     border: none;
-    outline: none; 
+    outline: none;
     font-size: 18px;
     color: var(--text-color);
 }
 
 section .top-section .search-box .search-icon {
     padding: 10px 10px;
-    background-color: transparent; 
+    background-color: transparent;
 }
 
 section .top-section .search-box .search-icon:hover {
@@ -136,14 +136,96 @@ section .top-section .search-box .location-error-message {
     display: none;
 }
 
-section .weather-info-section{
+section .weather-info-section .information-type{
+    font-size: larger;
+    color: var(--orange-color);
+    font-weight: bolder;
+}
+
+/* styles to display current weather information */
+
+section .weather-info-section .current-weather-data {
     background-color: var(--light-blue-color);
     box-shadow: 0 0 10px var(--light-blue-color);
     border-radius: 10px;
-    padding: 10px, 10px, 10px, 10px;
+    margin: auto;
+    padding: 20px;
+    cursor: default;
+    display: block;
+    /* border: 10px, 10px, 10px, 10px; */
+    /* display: inline-block; */
 }
 
-section .weather-info-section .current-weather-data{
-    display: block;
-    border: 10px, 10px, 10px, 10px;
+section .weather-info-section .current-weather-data .condition-text{
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+
+.current-weather-data-container {
+    display: flex;
+}
+
+.current-weather-data-container .condition-icon {
+    flex: 1;
+    align-self: center;
+    object-fit: fill; 
+}
+
+
+section .weather-info-section .current-weather-data .temperature{
+    font-size: 80px;
+    font-weight: 300;
+}
+
+section .weather-info-section .current-weather-data .degree-symbol,
+section .weather-info-section .current-weather-data .temp-unit{
+    font-size: 50px;
+    font-weight: 300;
+}
+
+section .weather-info-section .current-weather-data .temp-unit:hover{
+    cursor: pointer;
+}
+
+.weather-info-section .current-weather-data .temp-directions {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid black;
+    display: none;
+}
+
+section .weather-info-section .current-weather-data .speed-unit {
+    display: none;
+}
+
+section .weather-info-section .current-weather-data .change-speed-unit {
+    cursor: pointer;
+    -webkit-filter: invert(1);
+    filter: invert(1);
+    height: 35px;
+}
+section .weather-info-section .current-weather-data .condition-icon {
+    cursor: pointer;
+    -webkit-filter: invert(1);
+    filter: invert(1);
+    height: 60px;
+}
+.wind-speed,
+.change-speed-unit {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+section .weather-info-section .current-weather-data table,
+section .weather-info-section .current-weather-data td {
+    /* border: 1px solid; */
+
+}
+
+section .weather-info-section .current-weather-data td {
+    text-align: center;
 }

@@ -1,9 +1,30 @@
-var locationName = document.querySelector('.location-name h2')
-var searchInput = document.querySelector('.search-input');
-var searchIcon = document.querySelector('.search-icon');
-var locationErrorMessage = document.querySelector('.location-error-message');
+const currentDataLoader = document.querySelector('.current-weather');
+const forecastDataLoader = document.querySelector('.ten-day-forecast');
+const mapsDataLoader = document.querySelector('.maps');
+const historyDataLoader = document.querySelector('.history');
+const loadedInformationType = document.querySelector('.information-type');
+
+const locationName = document.querySelector('.location-name h2')
+const searchInput = document.querySelector('.search-input');
+const searchIcon = document.querySelector('.search-icon');
+const locationErrorMessage = document.querySelector('.location-error-message');
+const temperature = document.querySelector('.temperature');
+const windSpeed = document.querySelector('.wind-speed');
+const tempUnit = document.querySelector('.temp-unit');
+const speedUnit = document.querySelector('.speed-unit');
+
+const changeTempUnit = document.querySelectorAll(".temp-unit");
+const changeSpeedUnit = document.querySelector('.change-speed-unit');
 
 const weatherAPIKey = 'f5d569859a264cc9bbe131447242503';
+
+var countryName = null;
+var cityName = null;
+var temperatureC = 0;
+var temperatureF = 0;
+var windSpeedKph = 0;
+var windSpeedMph = 0;
+
 
 function getCurrentLocation() {
     if (navigator.geolocation) {
@@ -14,8 +35,8 @@ function getCurrentLocation() {
 }
 
 function showPosition(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+    let latitude = position.coords.latitude;
+    let longitude = position.coords.longitude;
     console.log("Latitude = " + latitude + "\nLongitude = " + longitude);
 
     fetch("https://api.weatherapi.com/v1/search.json?key=" + weatherAPIKey + "&q=" + latitude + "," + longitude)
@@ -23,7 +44,9 @@ function showPosition(position) {
         .then((data) => {
             if (data && data.length > 0) { // Check if data exists and has elements
                 locationName.innerHTML = "<i class='bi bi-crosshair'></i>  " + data[0].name + " , " + data[0].country;
-                showCurrentWeatherData(data[0].name, data[0].country);
+                cityName = data[0].name;
+                countryName = data[0].country;
+                showCurrentWeatherData();
             } else {
                 console.error("Error: No location data found");
                 window.alert("Error Finding Your Current Location (No Data)");
@@ -58,15 +81,25 @@ function showError(error) {
 }
 
 searchIcon.addEventListener('click', function () {
-    var inputLocation = searchInput.value;
-    locationErrorMessage.style.display = 'none';
-
-    if (inputLocation === "") {
-        showLocationError("Please enter a location", 3500);
-        return;
-    }
-    getLocation(inputLocation);
+    validateLocationInput();
 });
+
+searchInput.addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+        validateLocationInput();
+    }
+});
+
+function validateLocationInput(){
+    let inputLocation = searchInput.value;
+        locationErrorMessage.style.display = 'none';
+
+        if (inputLocation === "") {
+            showLocationError("Please enter a location", 3500);
+            return;
+        }
+        getLocation(inputLocation);
+}
 
 function getLocation(location) {
     fetch("http://api.weatherapi.com/v1/search.json?key=" + weatherAPIKey + "&q=" + location)
@@ -74,7 +107,9 @@ function getLocation(location) {
         .then((data) => {
             if (data && data.length > 0) { // Check if data exists and has elements
                 locationName.innerHTML = "<i class='bi bi-crosshair'></i>  " + data[0].name + " , " + data[0].country;
-                showCurrentWeatherData(data[0].name, data[0].country);
+                cityName = data[0].name;
+                countryName = data[0].country;
+                showCurrentWeatherData();
             } else {
                 showLocationError("Location not found", 15000);
             }
@@ -83,9 +118,9 @@ function getLocation(location) {
 
 function showLocationError(message, time) {
     // Calculate position relative to the input
-    var inputRect = searchInput.getBoundingClientRect();
-    var inputTop = inputRect.top + window.scrollY;
-    var inputLeft = inputRect.left + window.scrollX;
+    let inputRect = searchInput.getBoundingClientRect();
+    let inputTop = inputRect.top + window.scrollY;
+    let inputLeft = inputRect.left + window.scrollX;
 
     // Position the message below the input
     locationErrorMessage.style.display = 'block';
@@ -99,35 +134,64 @@ function showLocationError(message, time) {
     }, time);
 }
 
-function showCurrentWeatherData(city, country) {
-    console.log("showCurrentWeatherData called");
+currentDataLoader.addEventListener('click', function () {
+    showCurrentWeatherData();
+    document.querySelector(".ten-day-forecast-data").style.display = "none";
+    document.querySelector(".maps-data").style.display = "none";
+    document.querySelector(".history-data").style.display = "none";
+    document.querySelector(".current-weather-data").style.display = "block";
+    loadedInformationType.textContent="Current Weather";   
 
+});
 
+forecastDataLoader.addEventListener('click', function () {
+    showCurrentWeatherData();
+    document.querySelector(".current-weather-data").style.display = "none";
+    document.querySelector(".maps-data").style.display = "none";
+    document.querySelector(".history-data").style.display = "none";
+    document.querySelector(".ten-day-forecast-data").style.display = "block"; 
+    loadedInformationType.textContent="10 Day Forecast";  
 
-    var temperature = document.querySelector('.temperature');
-    var humidity = document.querySelector('.humidity');
-    var windSpeed = document.querySelector('.wind-speed');
+});
 
-    var tempUnit = document.querySelector('.temp-unit');
-    var speedUnit = document.querySelector('.speed-unit');
+mapsDataLoader.addEventListener('click', function () {
+    showCurrentWeatherData();
+    document.querySelector(".ten-day-forecast-data").style.display = "none";
+    document.querySelector(".current-weather-data").style.display = "none";
+    document.querySelector(".history-data").style.display = "none";
+    document.querySelector(".maps-data").style.display = "block";   
+    loadedInformationType.textContent="Weather Maps";
 
-    fetch("https://api.weatherapi.com/v1/current.json?key=" + weatherAPIKey + "&q=" + city)
+});
+
+historyDataLoader.addEventListener('click', function () {
+    showCurrentWeatherData();
+    document.querySelector(".ten-day-forecast-data").style.display = "none";
+    document.querySelector(".maps-data").style.display = "none";
+    document.querySelector(".current-weather-data").style.display = "none";
+    document.querySelector(".history-data").style.display = "block";   
+    loadedInformationType.textContent="Historical Weather Data";
+
+});
+
+function showCurrentWeatherData() {
+    let humidity = document.querySelector('.humidity');
+    let uvIndex = document.querySelector('.uv-index');
+
+    fetch("http://api.weatherapi.com/v1/current.json?key=" + weatherAPIKey + "&q=" + cityName + "," + countryName)
         .then((res) => res.json())
         .then((data) => {
             if (data) { // Check if data exists and has elements
                 console.log("Data Fetched");
 
-                temperature.textContent = data.current.temp_c;
                 humidity.textContent = data.current.humidity;
-                windSpeed.textContent = data.current.wind_kph;
+                uvIndex.textContent = data.current.uv;
 
-                getCondition(data.current.is_day, data.current.condition.code);
-                getDirectionName(data.current.wind_dir);
-
-                //get current time
-                const localtime = data.location.localtime;
-                const time = localtime.split(' ')[1]; // Splitting the string at the space and getting the second part
-                console.log("Current local time = "+time); // Output: 8:16
+                setTemperature(data.current.temp_c, data.current.temp_f);
+                setWindSpeed(data.current.wind_kph, data.current.wind_mph);
+                setLocalTime(data.location.localtime.split(' ')[1]);
+                setCondition(data.current.is_day, data.current.condition.code);
+                setDirectionName(data.current.wind_dir);
             }
         })
         .catch((error) => {
@@ -136,10 +200,69 @@ function showCurrentWeatherData(city, country) {
         });
 }
 
-function getCondition(isDay, code) {
-    var conditionText = document.querySelector('.condition-text');
-    var conditionIcon = document.querySelector('.condition-icon');
-    var folder = "day";
+function setTemperature(tempC, tempF) {
+    temperatureC = tempC;
+    temperatureF = tempF;
+
+    temperature.textContent = tempC;
+    tempUnit.textContent = "C";
+}
+
+// Add click event listener to each element
+changeTempUnit.forEach(function (tempUnit) {
+    tempUnit.addEventListener("click", function () {
+        if (tempUnit.textContent === "C") {
+            temperature.textContent = temperatureF;
+            tempUnit.textContent = "F";
+            return;
+        }
+        temperature.textContent = temperatureC;
+        tempUnit.textContent = "C";
+    });
+});
+
+
+function setWindSpeed(speedKph, speedMph) {
+    windSpeedKph = speedKph;
+    windSpeedMph = speedMph;
+
+    windSpeed.textContent = windSpeedKph;
+}
+
+changeSpeedUnit.addEventListener('click', function () {
+    if (speedUnit.textContent === "kmh") {
+        windSpeed.textContent = windSpeedMph;
+        changeSpeedUnit.src = "images/mph.png";
+        speedUnit.textContent = "mph";
+        return;
+    }
+    windSpeed.textContent = windSpeedKph;
+    changeSpeedUnit.src = "images/kmh.png";
+    speedUnit.textContent = "kmh";
+    return;
+});
+
+function setLocalTime(time) {
+    let localtime = document.querySelector('.local-time');
+    let localtimePeriod = document.querySelector('.local-time-period');
+
+    let hour = parseInt(time.split(":")[0]);
+    let minute = parseInt(time.split(":")[1]);
+    let timePeriod = "am";
+
+    if (hour >= 13) {
+        hour -= 12;
+        timePeriod = "pm";
+    }
+
+    localtime.textContent = hour + ":" + minute;
+    localtimePeriod.textContent = timePeriod;
+}
+
+function setCondition(isDay, code) {
+    let conditionText = document.querySelector('.condition-text');
+    let conditionIcon = document.querySelector('.condition-icon');
+    let folder = "day";
 
     if (isDay == 0) {
         folder = "night";
@@ -363,9 +486,10 @@ function getCondition(isDay, code) {
         }
     }
 }
-function getDirectionName(code) {
-    var windDirection = document.querySelector('.wind-direction');
-    var codeLength = code.length;
+
+function setDirectionName(code) {
+    let windDirection = document.querySelector('.wind-direction');
+    let codeLength = code.length;
 
     if (codeLength == 1) {
         switch (code) {
@@ -415,31 +539,57 @@ function getDirectionName(code) {
 
     switch (code) {
         case "NNW":
-            windDirection.textContent = "North North West";
-            return;
-        case "NNE":
-            windDirection.textContent = "North North East";
-            return;
-        case "ENE":
-            windDirection.textContent = "East North East";
-            return;
-        case "ESE":
-            windDirection.textContent = "East South East";
-            return;
-        case "SSE":
-            windDirection.textContent = "South South East";
-            return;
-        case "SSW":
-            windDirection.textContent = "South South West";
-            return;
-        case "WSW":
-            windDirection.textContent = "West South West";
-            return;
         case "WNW":
-            windDirection.textContent = "West North West";
+            windDirection.textContent = "North West";
             return;
+
+        case "NNE":
+        case "ENE":
+            windDirection.textContent = "North East";
+            return;
+
+        case "ESE":
+        case "SSE":
+            windDirection.textContent = "South East";
+            return;
+
+        case "SSW":
+        case "WSW":
+            windDirection.textContent = "South West";
+            return;
+
         default:
             windDirection.textContent = "Unspecified";
             return;
     }
+
+    // switch (code) {
+    //     case "NNW":
+    //         windDirection.textContent = "North West";
+    //         return;
+    //     case "NNE":
+    //         windDirection.textContent = "North East";
+    //         return;
+    //     case "ENE":
+    //         windDirection.textContent = "North East";
+    //         return;
+    //     case "ESE":
+    //         windDirection.textContent = "South East";
+    //         return;
+    //     case "SSE":
+    //         windDirection.textContent = "South East";
+    //         return;
+    //     case "SSW":
+    //         windDirection.textContent = "South West";
+    //         return;
+    //     case "WSW":
+    //         windDirection.textContent = "South West";
+    //         return;
+    //     case "WNW":
+    //         windDirection.textContent = "North West";
+    //         return;
+    //     default:
+    //         windDirection.textContent = "Unspecified";
+    //         return;
+    // }
 }

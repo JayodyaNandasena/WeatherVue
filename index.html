@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 
+<!-- <body> -->
+
 <body onload="getCurrentLocation()">
     <header>
         <h1 class="logo">WeatherVue</h1>
@@ -23,7 +25,7 @@
                     <h2 class="ten-day-forecast">10 Day Forecast</h2>
                 </li>
                 <li>
-                    <h2 class="maps">Maps</h2>
+                    <h2 class="maps">Weather Maps</h2>
                 </li>
                 <li>
                     <h2 class="history">Historical Weather Data</h2>
@@ -33,6 +35,7 @@
     </header>
 
     <section class="weather-info">
+
         <div class="top-section">
             <div class="location-name">
                 <h2><i class="bi bi-crosshair"></i> Colombo , Sri Lanka</h2>
@@ -45,32 +48,66 @@
         </div>
 
         <div class="weather-info-section">
+            <h1 class="information-type">Current Weather</h1>
+
             <div class="current-weather-data">
                 <p class="condition-text">Clear</p>
+                <div class="current-weather-data-container">
+                    <table>
+                        <tr>
+                            <td colspan="4">
+                                <p>
+                                    <span class="temperature">---</span>
+                                    <span class="degree-symbol">&deg;</span><span class="temp-unit"
+                                        title="Click to change temperature units">C</span>
+                                    <span class="temp-directions">Click to change temperature units</span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-clock"></i></td>
+                            <td><i class="bi bi-moisture"></i></td>
+                            <td><i class="bi bi-wind"></i></td>
+                            <td><i class="bi bi-brightness-high"></i></td>
+                        </tr>
+                        <tr>
+                            <td><span class="local-time">--:--</span><span class="local-time-period"></span></td>
+                            <td><span class="humidity">--</span>%</td>
+                            <td>
+                                <span class="wind-speed">50</span>
+                                <img class="change-speed-unit" title="Click to change wind speed units"
+                                    src="images/kmh.png" alt="">
+                                <p class="speed-unit">kmh</p>
+                            </td>
+                            <td><span class="uv-index">--</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <p class="wind-direction">----</p><br>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
 
-                <p>
-                    <span class="temperature">22.2</span>&deg;
-                    &nbsp;
-                    <span class="temp-unit">&nbsp;C</span>
-                </p>
-                
-                <img class="condition-icon" src="images/day/113.png" alt="">
-                
-                <p><i class="bi bi-moisture"></i>&nbsp;
-                    <span class="humidity">94</span>
-                    &nbsp;%
-                </p>
-                <p><i class="bi bi-wind"></i>
-                    <span class="wind-speed">4.2</span>
-                    &nbsp;
-                    <span class="speed-unit">kmph</span>
-                </p>
-                <p class="wind-direction">South East</p>
-                <p class=""><i class="bi bi-brightness-high"></i>
-                    <span class="uv-index">1.0</span>
-                    &nbsp;
-                </p>
+                    <img class="condition-icon" src="images/loading-gif.gif" alt="">
+                </div>
             </div>
+
+            <div class="ten-day-forecast-data">
+
+            </div>
+
+            <div class="maps-data">
+
+            </div>
+
+
+            <div class="history-data">
+
+            </div>
+
         </div>
 
     </section>
