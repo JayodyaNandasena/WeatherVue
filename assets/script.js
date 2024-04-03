@@ -12,6 +12,7 @@ const temperature = document.querySelector('.temperature');
 const windSpeed = document.querySelector('.wind-speed');
 const tempUnit = document.querySelector('.temp-unit');
 const speedUnit = document.querySelector('.speed-unit');
+const daySummariesContainer = document.querySelector(".day-summaries");
 
 const changeTempUnit = document.querySelectorAll(".temp-unit");
 const changeSpeedUnit = document.querySelector('.change-speed-unit');
@@ -90,15 +91,15 @@ searchInput.addEventListener("keydown", function (e) {
     }
 });
 
-function validateLocationInput(){
+function validateLocationInput() {
     let inputLocation = searchInput.value;
-        locationErrorMessage.style.display = 'none';
+    locationErrorMessage.style.display = 'none';
 
-        if (inputLocation === "") {
-            showLocationError("Please enter a location", 3500);
-            return;
-        }
-        getLocation(inputLocation);
+    if (inputLocation === "") {
+        showLocationError("Please enter a location", 3500);
+        return;
+    }
+    getLocation(inputLocation);
 }
 
 function getLocation(location) {
@@ -140,17 +141,18 @@ currentDataLoader.addEventListener('click', function () {
     document.querySelector(".maps-data").style.display = "none";
     document.querySelector(".history-data").style.display = "none";
     document.querySelector(".current-weather-data").style.display = "block";
-    loadedInformationType.textContent="Current Weather";   
+    loadedInformationType.textContent = "Current Weather";
 
 });
 
 forecastDataLoader.addEventListener('click', function () {
-    showCurrentWeatherData();
+    // showCurrentWeatherData();
+    createTenDaySummaries()
     document.querySelector(".current-weather-data").style.display = "none";
     document.querySelector(".maps-data").style.display = "none";
     document.querySelector(".history-data").style.display = "none";
-    document.querySelector(".ten-day-forecast-data").style.display = "block"; 
-    loadedInformationType.textContent="10 Day Forecast";  
+    document.querySelector(".ten-day-forecast-data").style.display = "block";
+    loadedInformationType.textContent = "10 Day Forecast";
 
 });
 
@@ -159,8 +161,8 @@ mapsDataLoader.addEventListener('click', function () {
     document.querySelector(".ten-day-forecast-data").style.display = "none";
     document.querySelector(".current-weather-data").style.display = "none";
     document.querySelector(".history-data").style.display = "none";
-    document.querySelector(".maps-data").style.display = "block";   
-    loadedInformationType.textContent="Weather Maps";
+    document.querySelector(".maps-data").style.display = "block";
+    loadedInformationType.textContent = "Weather Maps";
 
 });
 
@@ -169,12 +171,14 @@ historyDataLoader.addEventListener('click', function () {
     document.querySelector(".ten-day-forecast-data").style.display = "none";
     document.querySelector(".maps-data").style.display = "none";
     document.querySelector(".current-weather-data").style.display = "none";
-    document.querySelector(".history-data").style.display = "block";   
-    loadedInformationType.textContent="Historical Weather Data";
+    document.querySelector(".history-data").style.display = "block";
+    loadedInformationType.textContent = "Historical Weather Data";
 
 });
 
 function showCurrentWeatherData() {
+    let conditionText = document.querySelector('.condition-text');
+    let conditionIcon = document.querySelector('.condition-icon');
     let humidity = document.querySelector('.humidity');
     let uvIndex = document.querySelector('.uv-index');
 
@@ -184,13 +188,14 @@ function showCurrentWeatherData() {
             if (data) { // Check if data exists and has elements
                 console.log("Data Fetched");
 
+                conditionText.textContent = data.current.condition.text;
+                conditionIcon.src=setCondition(data.current.is_day, data.current.condition.code);
                 humidity.textContent = data.current.humidity;
                 uvIndex.textContent = data.current.uv;
 
                 setTemperature(data.current.temp_c, data.current.temp_f);
                 setWindSpeed(data.current.wind_kph, data.current.wind_mph);
                 setLocalTime(data.location.localtime.split(' ')[1]);
-                setCondition(data.current.is_day, data.current.condition.code);
                 setDirectionName(data.current.wind_dir);
             }
         })
@@ -260,8 +265,7 @@ function setLocalTime(time) {
 }
 
 function setCondition(isDay, code) {
-    let conditionText = document.querySelector('.condition-text');
-    let conditionIcon = document.querySelector('.condition-icon');
+    let source=null;
     let folder = "day";
 
     if (isDay == 0) {
@@ -271,213 +275,166 @@ function setCondition(isDay, code) {
     if (code > 1200) {
         switch (code) {
             case 1201:
-                conditionText.textContent = "Moderate or heavy freezing rain";
-                conditionIcon.src = "images/" + folder + "/314.png";
-                break;
+                source = "images/" + folder + "/314.png";
+                return source;
             case 1204:
-                conditionText.textContent = "Light sleet";
                 conditionIcon.src = "images/" + folder + "/317.png";
-                break;
+                return source;
             case 1207:
-                conditionText.textContent = "Moderate or heavy sleet";
-                conditionIcon.src = "images/" + folder + "/320.png";
-                break;
+                source = "images/" + folder + "/320.png";
+                return source;
             case 1210:
-                conditionText.textContent = "Patchy light snow";
-                conditionIcon.src = "images/" + folder + "/323.png";
-                break;
+                source = "images/" + folder + "/323.png";
+                return source;
             case 1213:
-                conditionText.textContent = "Light snow";
-                conditionIcon.src = "images/" + folder + "/326.png";
-                break;
+                source = "images/" + folder + "/326.png";
+                return source;
             case 1216:
-                conditionText.textContent = "Patchy moderate snow";
-                conditionIcon.src = "images/" + folder + "/329.png";
-                break;
+                source = "images/" + folder + "/329.png";
+                return source;
             case 1219:
-                conditionText.textContent = "Moderate snow";
-                conditionIcon.src = "images/" + folder + "/332.png";
-                break;
+                source = "images/" + folder + "/332.png";
+                return source;
             case 1222:
-                conditionText.textContent = "Patchy heavy snow";
-                conditionIcon.src = "images/" + folder + "/335.png";
-                break;
+                source = "images/" + folder + "/335.png";
+                return source;
             case 1225:
-                conditionText.textContent = "Heavy snow";
-                conditionIcon.src = "images/" + folder + "/338.png";
-                break;
+                source = "images/" + folder + "/338.png";
+                return source;
             case 1237:
-                conditionText.textContent = "Ice pellets";
-                conditionIcon.src = "images/" + folder + "/350.png";
-                break;
+                source = "images/" + folder + "/350.png";
+                return source;
             case 1240:
-                conditionText.textContent = "Light rain shower";
-                conditionIcon.src = "images/" + folder + "/353.png";
-                break;
+                source = "images/" + folder + "/353.png";
+                return source;
             case 1243:
-                conditionText.textContent = "Moderate or heavy rain shower";
-                conditionIcon.src = "images/" + folder + "/356.png";
-                break;
+                source = "images/" + folder + "/356.png";
+                return source;
             case 1246:
-                conditionText.textContent = "Torrential rain shower";
-                conditionIcon.src = "images/" + folder + "/359.png";
-                break;
+                source = "images/" + folder + "/359.png";
+                return source;
             case 1249:
-                conditionText.textContent = "Light sleet showers";
-                conditionIcon.src = "images/" + folder + "/362.png";
-                break;
+                source = "images/" + folder + "/362.png";
+                return source;
             case 1252:
-                conditionText.textContent = "Moderate or heavy sleet showers";
-                conditionIcon.src = "images/" + folder + "/365.png";
-                break;
+                source = "images/" + folder + "/365.png";
+                return source;
             case 1255:
-                conditionText.textContent = "Light snow showers";
-                conditionIcon.src = "images/" + folder + "/368.png";
-                break;
+                source = "images/" + folder + "/368.png";
+                return source;
             case 1258:
-                conditionText.textContent = "Moderate or heavy snow showers";
-                conditionIcon.src = "images/" + folder + "/371.png";
-                break;
+                source = "images/" + folder + "/371.png";
+                return source;
             case 1261:
-                conditionText.textContent = "Light showers of ice pellets";
-                conditionIcon.src = "images/" + folder + "/374.png";
-                break;
+                source = "images/" + folder + "/374.png";
+                return source;
             case 1264:
-                conditionText.textContent = "Moderate or heavy showers of ice pellets";
-                conditionIcon.src = "images/" + folder + "/377.png";
-                break;
+                source = "images/" + folder + "/377.png";
+                return source;
             case 1273:
-                conditionText.textContent = "Patchy light rain with thunder";
-                conditionIcon.src = "images/" + folder + "/386.png";
-                break;
+                source = "images/" + folder + "/386.png";
+                return source;
             case 1276:
-                conditionText.textContent = "Moderate or heavy rain with thunder";
-                conditionIcon.src = "images/" + folder + "/389.png";
-                break;
+                source = "images/" + folder + "/389.png";
+                return source;
             case 1279:
-                conditionText.textContent = "Patchy light snow with thunder";
-                conditionIcon.src = "images/" + folder + "/392.png";
-                break;
+                source = "images/" + folder + "/392.png";
+                return source;
             case 1282:
-                conditionText.textContent = "Moderate or heavy snow with thunder";
-                conditionIcon.src = "images/" + folder + "/395.png";
-                break;
+                source = "images/" + folder + "/395.png";
+                return source;
             default:
                 window.alert("Error Fetching Current Weather Data");
-                break;
+                return;
         }
     } else if (code > 1100) {
         switch (code) {
             case 1114:
-                conditionText.textContent = "Blowing snow";
-                conditionIcon.src = "images/" + folder + "/227.png";
+                source = "images/" + folder + "/227.png";
                 break;
             case 1117:
-                conditionText.textContent = "Blizzard";
-                conditionIcon.src = "images/" + folder + "/230.png";
+                source = "images/" + folder + "/230.png";
                 break;
             case 1135:
-                conditionText.textContent = "Fog";
-                conditionIcon.src = "images/" + folder + "/248.png";
+                source = "images/" + folder + "/248.png";
                 break;
             case 1147:
-                conditionText.textContent = "Freezing fog";
-                conditionIcon.src = "images/" + folder + "/260.png";
+                source = "images/" + folder + "/260.png";
                 break;
             case 1150:
-                conditionText.textContent = "Patchy light drizzle";
-                conditionIcon.src = "images/" + folder + "/263.png";
+                source = "images/" + folder + "/263.png";
                 break;
             case 1153:
-                conditionText.textContent = "Light drizzle";
-                conditionIcon.src = "images/" + folder + "/266.png";
+                source = "images/" + folder + "/266.png";
                 break;
             case 1168:
-                conditionText.textContent = "Freezing drizzle";
-                conditionIcon.src = "images/" + folder + "/281.png";
+                source = "images/" + folder + "/281.png";
                 break;
             case 1171:
-                conditionText.textContent = "Heavy freezing drizzle";
-                conditionIcon.src = "images/" + folder + "/284.png";
+                source = "images/" + folder + "/284.png";
                 break;
             case 1180:
-                conditionText.textContent = "Patchy light rain";
-                conditionIcon.src = "images/" + folder + "/293.png";
+                source = "images/" + folder + "/293.png";
                 break;
             case 1183:
-                conditionText.textContent = "Light rain";
-                conditionIcon.src = "images/" + folder + "/296.png";
+                source = "images/" + folder + "/296.png";
                 break;
             case 1186:
-                conditionText.textContent = "Moderate rain at times";
-                conditionIcon.src = "images/" + folder + "/299.png";
+                source = "images/" + folder + "/299.png";
                 break;
             case 1189:
-                conditionText.textContent = "Moderate rain";
-                conditionIcon.src = "images/" + folder + "/302.png";
+                source = "images/" + folder + "/302.png";
                 break;
             case 1192:
-                conditionText.textContent = "Heavy rain at times";
-                conditionIcon.src = "images/" + folder + "/305.png";
+                source = "images/" + folder + "/305.png";
                 break;
             case 1195:
-                conditionText.textContent = "Heavy rain";
-                conditionIcon.src = "images/" + folder + "/308.png";
+                source = "images/" + folder + "/308.png";
                 break;
             case 1198:
-                conditionText.textContent = "Light freezing rain";
-                conditionIcon.src = "images/" + folder + "/311.png";
+                source = "images/" + folder + "/311.png";
                 break;
             default:
                 window.alert("Error Fetching Current Weather Data");
                 return;
         }
 
-    } else {
+    } else if (code > 999){
         switch (code) {
             case 1000:
-                if (folder = "day") {
-                    conditionText.textContent = "Sunny";
-                } else {
-                    conditionText.textContent = "Clear";
-                }
-                conditionIcon.src = "images/" + folder + "/113.png";
+                // if (folder = "day") {
+                //     conditionText.textContent = "Sunny";
+                // } else {
+                //     conditionText.textContent = "Clear";
+                // }
+                source = "images/" + folder + "/113.png";
                 return;
             case 1003:
-                conditionText.textContent = "Partly cloudy";
-                conditionIcon.src = "images/" + folder + "/116.png";
+                source = "images/" + folder + "/116.png";
                 return;
             case 1006:
-                conditionText.textContent = "Cloudy";
-                conditionIcon.src = "images/" + folder + "/119.png";
+                source = "images/" + folder + "/119.png";
                 break;
             case 1009:
-                conditionText.textContent = "Overcast";
-                conditionIcon.src = "images/" + folder + "/122.png";
+                source = "images/" + folder + "/122.png";
                 break;
             case 1030:
-                conditionText.textContent = "Mist";
-                conditionIcon.src = "images/" + folder + "/143.png";
+                source = "images/" + folder + "/143.png";
                 break;
             case 1063:
-                conditionText.textContent = "Patchy rain possible";
-                conditionIcon.src = "images/" + folder + "/176.png";
+                source = "images/" + folder + "/176.png";
                 break;
             case 1066:
-                conditionText.textContent = "Patchy snow possible";
-                conditionIcon.src = "images/" + folder + "/179.png";
+                source = "images/" + folder + "/179.png";
                 break;
             case 1069:
-                conditionText.textContent = "Patchy sleet possible";
-                conditionIcon.src = "images/" + folder + "/182.png";
+                source = "images/" + folder + "/182.png";
                 break;
             case 1072:
-                conditionText.textContent = "Patchy freezing drizzle possible";
-                conditionIcon.src = "images/" + folder + "/185.png";
+                source = "images/" + folder + "/185.png";
                 break;
             case 1087:
-                conditionText.textContent = "Thundery outbreaks possible";
-                conditionIcon.src = "images/" + folder + "/200.png";
+                source = "images/" + folder + "/200.png";
                 break;
 
             default:
@@ -485,6 +442,7 @@ function setCondition(isDay, code) {
                 return;
         }
     }
+    return source;
 }
 
 function setDirectionName(code) {
@@ -592,4 +550,61 @@ function setDirectionName(code) {
     //         windDirection.textContent = "Unspecified";
     //         return;
     // }
+}
+
+function createTenDaySummaries() {
+    fetch("http://api.weatherapi.com/v1/forecast.json?key=" + weatherAPIKey + "&q=" + cityName + "," + countryName + "&days=10")
+        .then((res) => res.json())
+        .then((data) => {
+            console.log("data fetched");
+            const dailyForecasts = data.forecast.forecastday;
+
+            dailyForecasts.forEach((dayData, i) => {
+                const daySummary = document.createElement("div");
+                daySummary.classList.add("day-summary");
+
+                const divider = document.createElement("hr");
+
+                const date = document.createElement("p");
+                date.classList.add("date");
+                date.textContent = dayData.date;
+
+                const conditionText = document.createElement("p");
+                conditionText.classList.add("forecast-condition-text");
+                let dayConditionText=dayData.day.condition.text;
+                conditionText.textContent = dayConditionText;
+
+                const conditionIcon = document.createElement("img");
+                conditionIcon.classList.add("forecast-condition-icon");
+                conditionIcon.src = setCondition(1,dayData.day.condition.code);
+                conditionIcon.alt = dayConditionText;
+
+                const avgTemp = document.createElement("span");
+                avgTemp.classList.add("avg-temp");
+                avgTemp.textContent = "Average Temperature"+dayData.day.avgtemp_c;
+
+                const minTemp = document.createElement("span");
+                minTemp.classList.add("min-temp");
+                minTemp.textContent = "Minimum Temperature"+dayData.day.mintemp_c;
+
+                const maxTemp = document.createElement("span");
+                maxTemp.classList.add("max-temp");
+                maxTemp.textContent = "Maximum Temperature"+dayData.day.maxtemp_c;
+
+                daySummary.appendChild(divider);
+                daySummary.appendChild(date);
+                daySummary.appendChild(conditionText);
+                daySummary.appendChild(conditionIcon);
+                daySummary.appendChild(avgTemp);
+                daySummary.appendChild(minTemp);
+                daySummary.appendChild(maxTemp);
+
+                daySummariesContainer.appendChild(daySummary);
+
+            });
+        }).catch((error) => {
+            console.error("Error fetching Current Weather data:", error);
+            window.alert("Error Fetching Current Weather Data");
+        });
+
 }

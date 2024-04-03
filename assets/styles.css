@@ -151,7 +151,7 @@ section .weather-info-section .current-weather-data {
     margin: auto;
     padding: 20px;
     cursor: default;
-    display: block;
+    display: none;
     /* border: 10px, 10px, 10px, 10px; */
     /* display: inline-block; */
 }
@@ -210,8 +210,6 @@ section .weather-info-section .current-weather-data .change-speed-unit {
 }
 section .weather-info-section .current-weather-data .condition-icon {
     cursor: pointer;
-    -webkit-filter: invert(1);
-    filter: invert(1);
     height: 60px;
 }
 .wind-speed,
@@ -220,12 +218,52 @@ section .weather-info-section .current-weather-data .condition-icon {
     vertical-align: middle;
 }
 
-section .weather-info-section .current-weather-data table,
-section .weather-info-section .current-weather-data td {
-    /* border: 1px solid; */
-
-}
 
 section .weather-info-section .current-weather-data td {
     text-align: center;
+}
+
+section .weather-info-section .ten-day-forecast-data {
+    background-color: var(--light-blue-color);
+    box-shadow: 0 0 10px var(--light-blue-color);
+    border-radius: 10px;
+    margin: auto;
+    padding: 20px;
+    cursor: default;
+    display: block;
+    /* border: 10px, 10px, 10px, 10px; */
+    /* display: inline-block; */
+}
+
+/*Styles for 10 day weather forecast*/
+/* Styles for the day summary container */
+.day-summary {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: var(--light-blue-color);
+}
+
+/* Styles for the date */
+.date {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Styles for the condition text */
+.forecast-condition-text {
+    margin-bottom: 5px;
+}
+
+/* Styles for the condition icon */
+.forecast-condition-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+/* Styles for the temperature spans */
+.avg-temp, .min-temp, .max-temp {
+    display: block;
+    margin-bottom: 5px;
 }
