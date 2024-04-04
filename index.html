@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 
-<body>
+<!-- <body> -->
 
-<!-- <body onload="getCurrentLocation()"> -->
+<body onload="getCurrentLocation()">
     <header>
         <h1 class="logo">WeatherVue</h1>
         <nav>
@@ -53,7 +53,7 @@
             <div class="current-weather-data">
                 <p class="condition-text">Clear</p>
                 <div class="current-weather-data-container">
-                    <table>
+                    <table class="current-weather-data-table">
                         <tr>
                             <td colspan="4">
                                 <p>
@@ -90,21 +90,13 @@
                             <td></td>
                         </tr>
                     </table>
-
-                    <img class="condition-icon" src="images/loading-gif.gif" alt="">
+                   <img class="condition-icon" src="images/loading-gif.gif" alt=""> 
                 </div>
             </div>
 
             <div class="ten-day-forecast-data">
                 <div class="day-summaries">
-                    <div class="day-summary">
-                        <p class="date">2024-04-03</p>
-                        <p class="forecast-condition-text"></p>
-                        <img class="forecast-condition-icon" src="images/day/113.png" alt="forecast-condition-icon">
-                        <span class="avg-temp">10&deg;C</span>
-                        <span class="max-temp">10&deg;C</span>
-                        <span class="min-temp">10&deg;C</span>
-                    </div>
+                    
                 </div>
 
             </div>

@@ -563,8 +563,6 @@ function createTenDaySummaries() {
                 const daySummary = document.createElement("div");
                 daySummary.classList.add("day-summary");
 
-                const divider = document.createElement("hr");
-
                 const date = document.createElement("p");
                 date.classList.add("date");
                 date.textContent = dayData.date;
@@ -581,17 +579,16 @@ function createTenDaySummaries() {
 
                 const avgTemp = document.createElement("span");
                 avgTemp.classList.add("avg-temp");
-                avgTemp.textContent = "Average Temperature"+dayData.day.avgtemp_c;
+                avgTemp.textContent = dayData.day.avgtemp_c;
 
                 const minTemp = document.createElement("span");
                 minTemp.classList.add("min-temp");
-                minTemp.textContent = "Minimum Temperature"+dayData.day.mintemp_c;
+                minTemp.textContent = dayData.day.mintemp_c;
 
                 const maxTemp = document.createElement("span");
                 maxTemp.classList.add("max-temp");
-                maxTemp.textContent = "Maximum Temperature"+dayData.day.maxtemp_c;
+                maxTemp.textContent = dayData.day.maxtemp_c;
 
-                daySummary.appendChild(divider);
                 daySummary.appendChild(date);
                 daySummary.appendChild(conditionText);
                 daySummary.appendChild(conditionIcon);
