@@ -603,5 +603,10 @@ function createTenDaySummaries() {
             console.error("Error fetching Current Weather data:", error);
             window.alert("Error Fetching Current Weather Data");
         });
+}
 
+//To Toggle between dark mode and light mode
+function changeDisplayMode() {
+    console.log("Background changed");
+    document.documentElement.style.setProperty('--bg-color', '#a013e7');
 }
