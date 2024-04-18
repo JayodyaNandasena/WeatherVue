@@ -48,6 +48,7 @@ function showPosition(position) {
                 cityName = data[0].name;
                 countryName = data[0].country;
                 showCurrentWeatherData();
+                createTenDaySummaries();
             } else {
                 console.error("Error: No location data found");
                 window.alert("Error Finding Your Current Location (No Data)");
@@ -111,6 +112,7 @@ function getLocation(location) {
                 cityName = data[0].name;
                 countryName = data[0].country;
                 showCurrentWeatherData();
+                createTenDaySummaries();
             } else {
                 showLocationError("Location not found", 15000);
             }
@@ -146,7 +148,6 @@ currentDataLoader.addEventListener('click', function () {
 });
 
 forecastDataLoader.addEventListener('click', function () {
-    // showCurrentWeatherData();
     createTenDaySummaries()
     document.querySelector(".current-weather-data").style.display = "none";
     document.querySelector(".maps-data").style.display = "none";
