@@ -190,7 +190,7 @@ function showCurrentWeatherData() {
                 console.log("Data Fetched");
 
                 conditionText.textContent = data.current.condition.text;
-                conditionIcon.src=setCondition(data.current.is_day, data.current.condition.code);
+                conditionIcon.src = setCondition(data.current.is_day, data.current.condition.code);
                 humidity.textContent = data.current.humidity;
                 uvIndex.textContent = data.current.uv;
 
@@ -266,84 +266,62 @@ function setLocalTime(time) {
 }
 
 function setCondition(isDay, code) {
-    let source=null;
+    let source = null;
     let folder = "day";
 
     if (isDay == 0) {
         folder = "night";
     }
 
+
     if (code > 1200) {
         switch (code) {
             case 1201:
-                source = "images/" + folder + "/314.png";
-                return source;
+                return "images/" + folder + "/314.png";
             case 1204:
-                conditionIcon.src = "images/" + folder + "/317.png";
-                return source;
+                return "images/" + folder + "/317.png";
             case 1207:
-                source = "images/" + folder + "/320.png";
-                return source;
+                return "images/" + folder + "/320.png";
             case 1210:
-                source = "images/" + folder + "/323.png";
-                return source;
+                return "images/" + folder + "/323.png";
             case 1213:
-                source = "images/" + folder + "/326.png";
-                return source;
+                return "images/" + folder + "/326.png";
             case 1216:
-                source = "images/" + folder + "/329.png";
-                return source;
+                return "images/" + folder + "/329.png";
             case 1219:
-                source = "images/" + folder + "/332.png";
-                return source;
+                return "images/" + folder + "/332.png";
             case 1222:
-                source = "images/" + folder + "/335.png";
-                return source;
+                return "images/" + folder + "/335.png";
             case 1225:
-                source = "images/" + folder + "/338.png";
-                return source;
+                return "images/" + folder + "/338.png";
             case 1237:
-                source = "images/" + folder + "/350.png";
-                return source;
+                return "images/" + folder + "/350.png";
             case 1240:
-                source = "images/" + folder + "/353.png";
-                return source;
+                return "images/" + folder + "/353.png";
             case 1243:
-                source = "images/" + folder + "/356.png";
-                return source;
+                return "images/" + folder + "/356.png";
             case 1246:
-                source = "images/" + folder + "/359.png";
-                return source;
+                return "images/" + folder + "/359.png";
             case 1249:
-                source = "images/" + folder + "/362.png";
-                return source;
+                return "images/" + folder + "/362.png";
             case 1252:
-                source = "images/" + folder + "/365.png";
-                return source;
+                return "images/" + folder + "/365.png";
             case 1255:
-                source = "images/" + folder + "/368.png";
-                return source;
+                return "images/" + folder + "/368.png";
             case 1258:
-                source = "images/" + folder + "/371.png";
-                return source;
+                return "images/" + folder + "/371.png";
             case 1261:
-                source = "images/" + folder + "/374.png";
-                return source;
+                return "images/" + folder + "/374.png";
             case 1264:
-                source = "images/" + folder + "/377.png";
-                return source;
+                return "images/" + folder + "/377.png";
             case 1273:
-                source = "images/" + folder + "/386.png";
-                return source;
+                return "images/" + folder + "/386.png";
             case 1276:
-                source = "images/" + folder + "/389.png";
-                return source;
+                return "images/" + folder + "/389.png";
             case 1279:
-                source = "images/" + folder + "/392.png";
-                return source;
+                return "images/" + folder + "/392.png";
             case 1282:
-                source = "images/" + folder + "/395.png";
-                return source;
+                return "images/" + folder + "/395.png";
             default:
                 window.alert("Error Fetching Current Weather Data");
                 return;
@@ -351,56 +329,41 @@ function setCondition(isDay, code) {
     } else if (code > 1100) {
         switch (code) {
             case 1114:
-                source = "images/" + folder + "/227.png";
-                break;
+                return "images/" + folder + "/227.png";
             case 1117:
-                source = "images/" + folder + "/230.png";
-                break;
+                return "images/" + folder + "/230.png";
             case 1135:
-                source = "images/" + folder + "/248.png";
-                break;
+                return "images/" + folder + "/248.png";
             case 1147:
-                source = "images/" + folder + "/260.png";
-                break;
+                return "images/" + folder + "/260.png";
             case 1150:
-                source = "images/" + folder + "/263.png";
-                break;
+                return "images/" + folder + "/263.png";
             case 1153:
-                source = "images/" + folder + "/266.png";
-                break;
+                return "images/" + folder + "/266.png";
             case 1168:
-                source = "images/" + folder + "/281.png";
-                break;
+                return "images/" + folder + "/281.png";
             case 1171:
-                source = "images/" + folder + "/284.png";
-                break;
+                return "images/" + folder + "/284.png";
             case 1180:
-                source = "images/" + folder + "/293.png";
-                break;
+                return "images/" + folder + "/293.png";
             case 1183:
-                source = "images/" + folder + "/296.png";
-                break;
+                return "images/" + folder + "/296.png";
             case 1186:
-                source = "images/" + folder + "/299.png";
-                break;
+                return "images/" + folder + "/299.png";
             case 1189:
-                source = "images/" + folder + "/302.png";
-                break;
+                return "images/" + folder + "/302.png";
             case 1192:
-                source = "images/" + folder + "/305.png";
-                break;
+                return "images/" + folder + "/305.png";
             case 1195:
-                source = "images/" + folder + "/308.png";
-                break;
+                return "images/" + folder + "/308.png";
             case 1198:
-                source = "images/" + folder + "/311.png";
-                break;
+                return "images/" + folder + "/311.png";
             default:
                 window.alert("Error Fetching Current Weather Data");
                 return;
         }
 
-    } else if (code > 999){
+    } else if (code > 999) {
         switch (code) {
             case 1000:
                 // if (folder = "day") {
@@ -408,35 +371,25 @@ function setCondition(isDay, code) {
                 // } else {
                 //     conditionText.textContent = "Clear";
                 // }
-                source = "images/" + folder + "/113.png";
-                return;
+                return "images/" + folder + "/113.png";
             case 1003:
-                source = "images/" + folder + "/116.png";
-                return;
+                return "images/" + folder + "/116.png";
             case 1006:
-                source = "images/" + folder + "/119.png";
-                break;
+                return "images/" + folder + "/119.png";
             case 1009:
-                source = "images/" + folder + "/122.png";
-                break;
+                return "images/" + folder + "/122.png";
             case 1030:
-                source = "images/" + folder + "/143.png";
-                break;
+                return "images/" + folder + "/143.png";
             case 1063:
-                source = "images/" + folder + "/176.png";
-                break;
+                return "images/" + folder + "/176.png";
             case 1066:
-                source = "images/" + folder + "/179.png";
-                break;
+                return "images/" + folder + "/179.png";
             case 1069:
-                source = "images/" + folder + "/182.png";
-                break;
+                return "images/" + folder + "/182.png";
             case 1072:
-                source = "images/" + folder + "/185.png";
-                break;
+                return "images/" + folder + "/185.png";
             case 1087:
-                source = "images/" + folder + "/200.png";
-                break;
+                return "images/" + folder + "/200.png";
 
             default:
                 window.alert("Error Fetching Current Weather Data");
@@ -570,12 +523,12 @@ function createTenDaySummaries() {
 
                 const conditionText = document.createElement("p");
                 conditionText.classList.add("forecast-condition-text");
-                let dayConditionText=dayData.day.condition.text;
+                let dayConditionText = dayData.day.condition.text;
                 conditionText.textContent = dayConditionText;
 
                 const conditionIcon = document.createElement("img");
                 conditionIcon.classList.add("forecast-condition-icon");
-                conditionIcon.src = setCondition(1,dayData.day.condition.code);
+                conditionIcon.src = setCondition(1, dayData.day.condition.code);
                 conditionIcon.alt = dayConditionText;
 
                 const avgTemp = document.createElement("span");
